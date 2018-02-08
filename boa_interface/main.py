@@ -1,11 +1,12 @@
-from boa_logic import statistics, crypto_object, scraper, candlesticks
 import datetime
 import html
 import pandas
 from datetime import datetime as dt
 import matplotlib
+import os
 matplotlib.use('Agg')
 from matplotlib import pyplot
+from boa_logic import statistics, crypto_object, scraper, candlesticks
 
 #test update on dev branch
 
@@ -19,7 +20,7 @@ def main():
         "ethereum-classic", "lisk", "verge", "zcash","stratis", "bitcoin", "litecoin"
     ]
 
-    print(scrape_obj.get_price_history("ripple"))
+    #print(scrape_obj.get_price_history("ripple"))
 
     coins = []
     for coin in coin_names:
@@ -28,7 +29,8 @@ def main():
 
     OFFICIAL_BOA(coins, now)
     # text_message_report(quick_report(coins,now))
-    print(quick_report(coins, now))
+    #print(quick_report(coins, now))
+    print('hello')
 
 
 def exit_tester(candle_ltc):
@@ -100,7 +102,10 @@ def OFFICIAL_BOA(coins, now):
 
     me = "admin@cryptoboa.io"
     # you = ["officialemre@gmail.com"]
-    you = ["akoruth95@gmail.com"]
+    if os.environ['APP_SETTINGS'] == 'production':
+        you = ["akoruth95@gmail.com"]
+    if os.environ['APP_SETTINGS'] == 'staging':
+        you = ["alankoruth@yahoo.com"]
 
     for name in you:
         # Create message container - the correct MIME type is multipart/alternative.
