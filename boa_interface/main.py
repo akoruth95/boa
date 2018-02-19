@@ -6,7 +6,7 @@ import matplotlib
 import os
 matplotlib.use('Agg')
 from matplotlib import pyplot
-from boa_logic import statistics, crypto_object, scraper, candlesticks
+from boa_logic import statistics, crypto_object, scraper, candlesticks, config
 
 #test update on dev branch
 
@@ -97,15 +97,13 @@ def OFFICIAL_BOA(coins, now):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
+    appConfig = config.Config()
     s = smtplib.SMTP_SSL(host='smtp.privateemail.com', port=465)
     s.login("admin@cryptoboa.io", "Aesthetics21!P")
 
     me = "admin@cryptoboa.io"
     # you = ["officialemre@gmail.com"]
-    if os.environ['APP_SETTINGS'] == 'production':
-        you = ["akoruth95@gmail.com"]
-    if os.environ['APP_SETTINGS'] == 'staging':
-        you = ["alankoruth@yahoo.com"]
+    you = appConfig.getEmailList()
 
     for name in you:
         # Create message container - the correct MIME type is multipart/alternative.
